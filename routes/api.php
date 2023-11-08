@@ -2,18 +2,25 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\KeyGenController as KeyGen;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+use App\Http\Middleware\MobileAuthMiddleware;
+use App\Http\Middleware\AuthenticateUserMiddleware;
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+
+Route::middleware([MobileAuthMiddleware::class])->group(function () {
+    // Routes authenticated
+    Route::post('/generate-keys', [KeyGen::class, 'generatePairKey']);
+    Route::post('/recover-keys', [KeyGen::class, 'recoverPairKeys']);
+
+    Route::post('/users/new', [UserController::class, 'create']);
+
+    Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
+
+        Route::post('/user/delete', [UserController::class, 'delete']);
+        Route::post('/user/list-transactions', [UserController::class, 'listTransactions']);
+    });
 });
+
