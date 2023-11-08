@@ -12,7 +12,7 @@ return new class extends Migration
             $table->ulid('id');
             $table->ulid('userName', 100);
             $table->ulid('walletAddress', 100);
-            $table->string('publicKey', 2500);
+            $table->string('publicKey', 250);
             $table->decimal('funds', 18, 10); // 18 int and 10 decimal cases
             $table->timestamps();
         });
