@@ -17,6 +17,8 @@ Route::middleware([MobileAuthMiddleware::class])->group(function () {
 
     Route::post('/users/new', [UserController::class, 'create']);
 
+    Route::post('/users/list', [UserController::class, 'list']);
+
     Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
 
         Route::post('/user/delete', [UserController::class, 'delete']);

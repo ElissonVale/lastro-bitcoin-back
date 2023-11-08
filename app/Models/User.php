@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
+    use HasUuids;
     use HasFactory;
 
     protected $fillable = [
@@ -15,14 +17,15 @@ class User extends Model
         'userName',
         'walletAddress',
         'publicKey',
+        'funds'
     ];
 
 
-    public static function validate($request)
+    public static function validator($request)
     {
         $validator = Validator::make($request->all(), [
-            'userName' => 'required|unique:users',
-            'walletAddress' => 'required|min:50',
+            'userName' => 'required|min:30',
+            'walletAddress' => 'required|min:30',
             'publicKey' => 'required|min:100',
         ]);
 

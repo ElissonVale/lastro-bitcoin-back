@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use phpseclib3\Crypt\RSA;
+use Illuminate\Http\Request;
 use phpseclib3\Crypt\PublicKeyLoader;
 
 class KeyGenController extends Controller
@@ -14,15 +14,14 @@ class KeyGenController extends Controller
 
         $publicKey = $privateKey->getPublicKey();
 
-        return [
-            'publicKey' => (string)$publicKey,
-            'privateKey' => (string)$privateKey,
-        ];
+        return response()->json([
+            'success' => true, 'publicKey' => urlencode((string)$publicKey), 'privateKey' => urlencode((string)$privateKey),
+        ]);
     }
 
     public function recoverPairKeys(Request $request)
     {
-        if(!isset($request->privateKey)){
+        if(!isset($request->privateKey)) {
             return response()->json([ 'success' => false, 'message' => "The 'privateKey' parameter must be provided!"]);
         }
 
@@ -30,10 +29,9 @@ class KeyGenController extends Controller
 
         $publicKey = $privateKey->getPublicKey();
 
-        return [
-            'publicKey' => (string)$publicKey,
-            'privateKey' => (string)$privateKey,
-        ];
+        return response()->json([
+            'success' => true, 'publicKey' => urlencode((string)$publicKey), 'privateKey' => urlencode((string)$privateKey),
+        ]);
     }
 
 }

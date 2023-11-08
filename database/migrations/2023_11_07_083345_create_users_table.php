@@ -9,11 +9,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->ulid('id');
-            $table->ulid('userName', 100);
-            $table->ulid('walletAddress', 100);
-            $table->string('publicKey', 250);
-            $table->decimal('funds', 18, 10); // 18 int and 10 decimal cases
+            $table->uuid('id')->primary();
+            $table->string('userName', 250);
+            $table->string('walletAddress', 250)->nullable();
+            $table->string('publicKey', 550);
+            $table->decimal('funds', 18, 10)->nullable(); // 18 int and 10 decimal cases
             $table->timestamps();
         });
     }

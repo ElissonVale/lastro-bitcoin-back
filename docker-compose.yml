@@ -3,12 +3,17 @@ version: '3'
 services:
   app:
     build:
-      context: ./vendor/laravel/sail/runtimes/8.2
+      context: ./vendor/laravel/sail/runtimes/8.1
       dockerfile: Dockerfile
+      args:
+        WWWGROUP: '${WWWGROUP-1000}'
     # extra_hosts:
     #   - 'host.docker.internal:host-gateway'
     volumes:
       - .:/var/www/html
+    environment:
+        WWWUSER: '${WWWUSER-1000}'
+        LARAVEL_SAIL: 1
     expose:
       - 80
     ports:
@@ -24,8 +29,11 @@ services:
 
   postgres:
     image: postgres:13
+    expose:
+      - 5432
+    ports:
+      - "5432:5432"
     environment:
-      POSTGRES_PORT: ${DB_PORT}
       POSTGRES_DB: '${DB_DATABASE}'
       POSTGRES_USER: '${DB_USERNAME}'
       POSTGRES_PASSWORD: '${DB_PASSWORD}'

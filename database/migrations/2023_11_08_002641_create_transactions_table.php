@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->ulid('id');
-            $table->ulid('to');
-            $table->ulid('from');
+            $table->uuid('id')->primary();
+            $table->uuid('userTo');
+            $table->uuid('userFrom');
             $table->decimal('amount', 18, 10); // 18 int and 10 decimal cases
             $table->string('walletFrom', 100);
             $table->string('walletTo', 100);
