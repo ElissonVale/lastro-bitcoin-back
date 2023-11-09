@@ -34,15 +34,16 @@ class UserController extends Controller
         }
 
         $user = User::create([
-            'id' => Str::uuid(),
             'userName' => $request->userName,
+            'surName' => $request->surName,
+            'avatarUrl' => $request->avatarUrl,
             'walletAddress' => $request->walletAddress,
             'publicKey' => urldecode($request->publicKey),
         ]);
 
         return response()->json([
             'success' => true,
-            'user' => $user
+            'userId' => $user->id
         ]);
     }
 
@@ -62,7 +63,7 @@ class UserController extends Controller
             return response()->json(['success' => false,'message' => "The 'userName' parameter must be provided!"]);
         }
 
-        $user = User::where('userName', $request->userName)->first();
+        $user = User::where('userName', $request->userName)->select([ "id", "userName", "surName" ])->get();
 
         return response()->json([
            'success' => isset($user),

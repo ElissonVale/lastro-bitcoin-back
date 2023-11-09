@@ -15,17 +15,17 @@ class User extends Model
     protected $fillable = [
         'id',
         'userName',
+        'surName',
+        'avatarUrl',
         'walletAddress',
         'publicKey',
         'funds'
     ];
 
-
     public static function validator($request)
     {
         $validator = Validator::make($request->all(), [
             'userName' => 'required|min:30',
-            // 'walletAddress' => 'required|min:26',
             'publicKey' => 'required|min:100',
         ]);
 
