@@ -39,6 +39,7 @@ class UserController extends Controller
             'avatarUrl' => $request->avatarUrl,
             'walletAddress' => $request->walletAddress,
             'publicKey' => urldecode($request->publicKey),
+            'publicHash' => hash('sha256', urldecode($request->publicKey))
         ]);
 
         return response()->json([
@@ -63,7 +64,7 @@ class UserController extends Controller
             return response()->json(['success' => false,'message' => "The 'userName' parameter must be provided!"]);
         }
 
-        $user = User::where('userName', $request->userName)->select([ "id", "userName", "surName" ])->get();
+        $user = User::where('userName', $request->userName)->select([ "id", "userName", "surName", "publicHash" ])->get();
 
         return response()->json([
            'success' => isset($user),

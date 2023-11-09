@@ -9,22 +9,17 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthenticateUserMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
+
     public function handle(Request $request, Closure $next): Response
     {
-        $headers = $request->headers->all();
-        $publicKey = $headers['authorization'][0];
+        $publicKey = $request->header('Authorization');
 
         if(!$request->hasHeader('Authorization')) {
-            return response()->json([ 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
+            return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
         }
 
         if(empty(User::where('publicKey', urldecode($publicKey))->first()))  {
-            return response()->json([ 'message' => 'Unauthorized', 'publicKey' => $publicKey ], Response::HTTP_UNAUTHORIZED);
+            return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);

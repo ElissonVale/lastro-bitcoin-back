@@ -19,6 +19,7 @@ class User extends Model
         'avatarUrl',
         'walletAddress',
         'publicKey',
+        'publicHash',
         'funds'
     ];
 

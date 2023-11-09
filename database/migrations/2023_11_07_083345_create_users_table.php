@@ -14,7 +14,8 @@ return new class extends Migration
             $table->string('surName', 100)->nullable();
             $table->string('avatarUrl', 250)->nullable();
             $table->string('walletAddress', 250)->nullable();
-            $table->string('publicKey', 550);
+            $table->string('publicKey', 1250);
+            $table->string('publicHash', 64);
             $table->decimal('funds', 18, 10)->nullable(); // 18 int and 10 decimal cases
             $table->timestamps();
         });
