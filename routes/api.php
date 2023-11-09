@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\KeyGenController as KeyGen;
 
 use App\Http\Middleware\MobileAuthMiddleware;
@@ -17,12 +18,17 @@ Route::middleware([MobileAuthMiddleware::class])->group(function () {
 
     Route::post('/users/new', [UserController::class, 'create']);
 
+    Route::post('/users/validate-name', [UserController::class, 'validateName']);
+
     Route::post('/users/list', [UserController::class, 'list']);
 
     Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
 
-        Route::post('/user/delete', [UserController::class, 'delete']);
-        Route::post('/user/list-transactions', [UserController::class, 'listTransactions']);
+        Route::post('/users/delete', [UserController::class, 'delete']);
+
+        Route::post('/users/search', [UserController::class, 'search']);
+
+        Route::post('/transactions/list', [TransactionController::class, 'listTransactions']);
     });
 });
 

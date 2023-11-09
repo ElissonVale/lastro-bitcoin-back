@@ -25,7 +25,7 @@ class User extends Model
     {
         $validator = Validator::make($request->all(), [
             'userName' => 'required|min:30',
-            'walletAddress' => 'required|min:30',
+            // 'walletAddress' => 'required|min:26',
             'publicKey' => 'required|min:100',
         ]);
 

@@ -13,7 +13,7 @@ class Transaction extends Model
     use HasFactory;
 
     const MIN_UUID = "|min:36";
-    const MIN_WALLET = "|min:36";
+    const MIN_WALLET = "|min:26";
 
     protected $fillable = [
         'id',

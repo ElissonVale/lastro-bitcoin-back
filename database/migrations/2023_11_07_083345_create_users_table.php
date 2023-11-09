@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('userName', 250);
+            $table->string('userName', 250)->primary();
             $table->string('walletAddress', 250)->nullable();
             $table->string('publicKey', 550);
             $table->decimal('funds', 18, 10)->nullable(); // 18 int and 10 decimal cases

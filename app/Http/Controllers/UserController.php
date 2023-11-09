@@ -11,6 +11,22 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    private $PUB_KEY_REQUIRED = "The 'publicKey' parameter must be provided!";
+
+    public function validateName(Request $request)
+    {
+        if(!isset($request->userName)) {
+            return response()->json([ 'success' => false, 'message' => "The 'userName' parameter must be provided!"]);
+        }
+
+        $user = User::where('userName', $request->userName)->first();
+
+        return response()->json([
+            'success' => !isset($user),
+            'message' => isset($user) ? "User already exists!" : "User name is valid!"
+        ]);
+    }
+
     public function create(Request $request)
     {
         if(!User::validator($request)) {
@@ -21,7 +37,7 @@ class UserController extends Controller
             'id' => Str::uuid(),
             'userName' => $request->userName,
             'walletAddress' => $request->walletAddress,
-            'publicKey' => $request->publicKey,
+            'publicKey' => urldecode($request->publicKey),
         ]);
 
         return response()->json([
@@ -33,45 +49,46 @@ class UserController extends Controller
     public function delete(Request $request)
     {
         if(!isset($request->publicKey)) {
-            return response()->json(['success' => false,'message' => "The 'publicKey' parameter must be provided!"]);
+            return response()->json(['success' => false,'message' => $this->PUB_KEY_REQUIRED]);
         }
 
-        User::where('publicKey', $request->publicKey)->delete();
+        User::where('publicKey', urldecode($request->publicKey))->delete();
 
         return response()->json(['success' => true, 'message' => "User deleted successfully"]);
     }
 
-    public function listTransactions(Request $request)
-    {
-        if(!isset($request->publicKey)) {
-            return response()->json(['success' => false,'message' => "The 'publicKey' parameter must be provided!"]);
+    public function search(Request $request) {
+        if(!isset($request->userName)) {
+            return response()->json(['success' => false,'message' => "The 'userName' parameter must be provided!"]);
         }
 
-        $user = User::where('publicKey', $request->publicKey)->first();
+        $user = User::where('userName', $request->userName)->first();
 
-        $transactionsSended = Transaction::where('from', $user->id)->get();
-        $transactionsReceived = Transaction::where('to', $user->id)->get();
-
-        return response()->json(['success' => true, 'transactions' => [
-            'transactionsSended' => $transactionsSended,
-            'transactionsReceived' => $transactionsReceived
-        ]]);
+        return response()->json([
+           'success' => isset($user),
+           'user' => $user
+        ]);
     }
 
     public function found(Request $request)
     {
         if(!isset($request->publicKey)) {
-            return response()->json(['success' => false,'message' => "The 'publicKey' parameter must be provided!"]);
+            return response()->json(['success' => false,'message' => $this->PUB_KEY_REQUIRED]);
         }
 
-        $user = User::where('publicKey', $request->publicKey)->first();
+        $user = User::where('publicKey', urldecode($request->publicKey))->first();
 
         return response()->json(['success' => true, 'found' => $user->funds]);
     }
 
-    public function list(Request $request)
+    public function list()
     {
         $users = User::all();
+
+        foreach($users as $user) {
+            $user->publicKey = urlencode($user->publicKey);
+        }
+
         return response()->json(['success' => true, 'users' => $users]);
     }
 }

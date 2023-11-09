@@ -5,62 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\Models\Transaction;
+use App\Models\User;
 
 class TransactionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+    const PUB_KEY_REQUIRED = "The 'userId' parameter must be provided!";
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function listTransactions(Request $request)
     {
-        //
-    }
+        if(!isset($request->userId)) {
+            return response()->json(['success' => false,'message' => PUB_KEY_REQUIRED]);
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreTransactionRequest $request)
-    {
-        //
-    }
+        $user = User::where('id', $request->userId)->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
+        $transactionsSended = Transaction::where('from', $user->id)->get();
+        $transactionsReceived = Transaction::where('to', $user->id)->get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateTransactionRequest $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        return response()->json(['success' => true, 'transactions' => [
+            'transactionsSended' => $transactionsSended,
+            'transactionsReceived' => $transactionsReceived
+        ]]);
     }
 }
