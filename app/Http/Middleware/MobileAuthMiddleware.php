@@ -8,21 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MobileAuthMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
     public function handle(Request $request, Closure $next): Response
     {
-        $headers = $request->headers->all();
-
         if(!$request->hasHeader('apiKey')) {
-            return response()->json([ 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
+            return response()->json([ 'success' => false, 'message' => 'Unauthorized apiKey required!' ], Response::HTTP_UNAUTHORIZED);
         }
 
-        if(env("API_KEY") != $headers['apikey'][0]) {
-            return response()->json([ 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
+        if($request->header("apiKey") != env("API_KEY")) {
+            return response()->json([ 'success' => false, 'message' => 'Unauthorized, invalid apiKey!' ], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);

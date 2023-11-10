@@ -34,9 +34,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: '${DB_DATABASE}'
-      POSTGRES_USER: '${DB_USERNAME}'
-      POSTGRES_PASSWORD: '${DB_PASSWORD}'
+      POSTGRES_DB: '${DB_DATABASE-lastro_db}'
+      POSTGRES_USER: '${DB_USERNAME-lastro}'
+      POSTGRES_PASSWORD: '${DB_PASSWORD-qwaszx1234}'
     volumes:
       - ./pg_data:/var/lib/postgresql/data
 

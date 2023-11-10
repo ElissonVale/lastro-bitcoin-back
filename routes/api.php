@@ -14,6 +14,7 @@ use App\Http\Middleware\AuthenticateUserMiddleware;
 Route::middleware([MobileAuthMiddleware::class])->group(function () {
     // Routes authenticated
     Route::post('/generate-keys', [KeyGen::class, 'generatePairKey']);
+    
     Route::post('/recover-keys', [KeyGen::class, 'recoverPairKeys']);
 
     Route::post('/users/new', [UserController::class, 'create']);

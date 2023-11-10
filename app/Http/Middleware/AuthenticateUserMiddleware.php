@@ -12,12 +12,12 @@ class AuthenticateUserMiddleware
 
     public function handle(Request $request, Closure $next): Response
     {
-        $publicKey = $request->header('Authorization');
-
         if(!$request->hasHeader('Authorization')) {
             return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
         }
 
+        $publicKey = $request->header('Authorization');
+        
         if(empty(User::where('publicKey', urldecode($publicKey))->first()))  {
             return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
         }
