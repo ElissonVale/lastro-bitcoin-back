@@ -5,19 +5,37 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\ApiKeyAuthenticate;
 
 class MobileAuthMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {
-        if(!$request->hasHeader('apiKey')) {
-            return response()->json([ 'success' => false, 'message' => 'Unauthorized apiKey required!' ], Response::HTTP_UNAUTHORIZED);
-        }
+        try {
+            if(!$request->hasHeader('apiKey')) {
+                throw new \Exception('Unauthorized. apiKey is required!');
+            }
 
-        if($request->header("apiKey") != env("API_KEY")) {
-            return response()->json([ 'success' => false, 'message' => 'Unauthorized, invalid apiKey!' ], Response::HTTP_UNAUTHORIZED);
+            $apiKey = ApiKeyAuthenticate::where('apiKey', $request->header('apiKey'))->first();
+
+            if(empty($apiKey))  {
+                throw new \Exception('Unauthorized. Invalid key authorization!');
+            }
+
+            if(!$apiKey->active || $apiKey->expire < date('Y-m-d H:i:s', time())) {
+                throw new \Exception("Unauthorized. apiKey is expired!");
+            }
+
+            $apiKey->update([
+                'requests' => $apiKey->requests += 1
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json(['success' => false,'message' => $ex->getMessage() ], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);
     }
 }
+
+
+

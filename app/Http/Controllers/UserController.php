@@ -7,12 +7,11 @@ use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Transaction;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    private $PUB_KEY_REQUIRED = "The 'publicKey' parameter must be provided!";
-
     public function validateName(Request $request)
     {
         if(!isset($request->userName)) {
@@ -44,27 +43,22 @@ class UserController extends Controller
 
         return response()->json([
             'success' => true,
-            'userId' => $user->id
+            'user' => ['id' => $user->id, 'publicHash' => $user->publicHash ],
         ]);
     }
 
     public function delete(Request $request)
     {
-        if(!isset($request->publicKey)) {
-            return response()->json(['success' => false,'message' => $this->PUB_KEY_REQUIRED]);
-        }
+        User::where('id', $request->user->id)->delete();
 
-        User::where('publicKey', urldecode($request->publicKey))->delete();
+        Transaction::where("userFrom", $request->user->id)->delete();
 
         return response()->json(['success' => true, 'message' => "User deleted successfully"]);
     }
 
-    public function search(Request $request) {
-        if(!isset($request->userName)) {
-            return response()->json(['success' => false,'message' => "The 'userName' parameter must be provided!"]);
-        }
-
-        $user = User::where('userName', $request->userName)->select([ "id", "userName", "surName", "publicHash" ])->get();
+    public function search(Request $request)
+    {
+        $user = User::where('userName', $request->userName)->select([ "id", "userName", "surName" ])->get();
 
         return response()->json([
            'success' => isset($user),
@@ -74,18 +68,12 @@ class UserController extends Controller
 
     public function found(Request $request)
     {
-        if(!isset($request->publicKey)) {
-            return response()->json(['success' => false,'message' => $this->PUB_KEY_REQUIRED]);
-        }
-
-        $user = User::where('publicKey', urldecode($request->publicKey))->first();
-
-        return response()->json(['success' => true, 'found' => $user->funds]);
+        return response()->json(['success' => true, 'found' => $request->user->funds]);
     }
 
     public function list()
     {
-        $users = User::all();
+        $users = User::all(); // User::select(['id', "userName", "surName", "publicKey"])->get();
 
         foreach($users as $user) {
             $user->publicKey = urlencode($user->publicKey);

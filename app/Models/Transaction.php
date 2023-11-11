@@ -33,6 +33,6 @@ class Transaction extends Model
             'walletTo' =>'required'.MIN_WALLET,
         ]);
 
-        return!$validator->fails();
+        return !$validator->fails();
     }
 }

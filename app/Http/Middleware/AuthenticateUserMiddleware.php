@@ -6,20 +6,44 @@ use Closure;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\ApiKeyAuthenticate;
 
 class AuthenticateUserMiddleware
 {
-
+    // This middleware is responsible for authenticating the users
     public function handle(Request $request, Closure $next): Response
     {
-        if(!$request->hasHeader('Authorization')) {
-            return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
-        }
+        try {
+            if(!$request->hasHeader('Authorization')) {
+                throw new \Exception('Unauthorized. Authorization is empty!');
+            }
 
-        $publicKey = $request->header('Authorization');
-        
-        if(empty(User::where('publicKey', urldecode($publicKey))->first()))  {
-            return response()->json([ 'success' => false, 'message' => 'Unauthorized' ], Response::HTTP_UNAUTHORIZED);
+            $publicKey = urldecode($request->header('Authorization'));
+
+            $user = User::where('publicKey', $publicKey)->first();
+
+            if(empty($user))  {
+                throw new \Exception('Unauthorized. Invalid key authorization');
+            }
+
+            $publicHash = hash('sha256', $publicKey);
+
+            if($user->publicHash != $publicHash) {
+                throw new \Exception('Unauthorized. Invalid key to the user!');
+            }
+
+            // Register the requests of the key registered
+            if($request->hasHeader('apiKey')) {
+                $apiAuthenticator = ApiKeyAuthenticate::where('apiKey', $request->getHeader('apiKey'))->first();
+                if(!empty($apiAuthenticator)) {
+                    $apiAuthenticator->update(['requests' => $apiAuthenticator->requests += 1]);
+                }
+            }
+
+            $request->merge('user', $user);
+
+        } catch (\Exception $ex) {
+            return response()->json(['success' => false,'message' => $ex->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
 
         return $next($request);
