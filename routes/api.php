@@ -37,3 +37,5 @@ Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
 Route::post('/authenticate/generate-key', [ApiKeyAuthenticateController::class, 'generate']);
 
 Route::post('/authenticate/list-keys', [ApiKeyAuthenticateController::class, 'list']);
+
+
