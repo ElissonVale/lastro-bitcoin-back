@@ -18,9 +18,10 @@ class AuthenticateUserMiddleware
                 throw new \Exception('Unauthorized. Authorization is empty!');
             }
 
+            $userId = $request->header("userId");
             $publicKey = urldecode($request->header('Authorization'));
 
-            $user = User::where('publicKey', $publicKey)->first();
+            $user = User::where('id', $userId)->first();
 
             if(empty($user))  {
                 throw new \Exception('Unauthorized. Invalid key authorization');
