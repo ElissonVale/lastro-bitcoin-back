@@ -51,8 +51,6 @@ class UserController extends Controller
     {
         User::where('id', $request->user->id)->delete();
 
-        Transaction::where("userFrom", $request->user->id)->delete();
-
         return response()->json(['success' => true, 'message' => "User deleted successfully"]);
     }
 

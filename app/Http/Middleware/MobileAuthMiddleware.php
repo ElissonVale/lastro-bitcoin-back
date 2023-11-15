@@ -8,9 +8,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\ApiKeyAuthenticate;
 
-class AppException extends Exception {
-
-}
+class AppError extends Exception { }
 
 class MobileAuthMiddleware
 {
@@ -19,23 +17,23 @@ class MobileAuthMiddleware
         try
         {
             if(!$request->hasHeader('apiKey')) {
-                throw new AppException('Unauthorized. apiKey is required!');
+                throw new AppError('Unauthorized. apiKey is required!');
             }
 
             $apiKey = ApiKeyAuthenticate::where('apiKey', $request->header('apiKey'))->first();
 
             if(empty($apiKey))  {
-                throw new AppException('Unauthorized. Invalid key authorization!');
+                throw new AppError('Unauthorized. Invalid key authorization!');
             }
 
             if(!$apiKey->active || $apiKey->expire < date('Y-m-d H:i:s', time())) {
-                throw new AppException("Unauthorized. apiKey is expired!");
+                throw new AppError("Unauthorized. apiKey is expired!");
             }
 
             $apiKey->update([
                 'requests' => $apiKey->requests += 1
             ]);
-        } catch (AppException $ex) {
+        } catch (AppError $ex) {
             return response()->json(['success' => false,'message' => $ex->getMessage() ], Response::HTTP_UNAUTHORIZED);
         }
 
