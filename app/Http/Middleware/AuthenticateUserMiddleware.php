@@ -3,10 +3,15 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use \Exception;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\ApiKeyAuthenticate;
+
+class AppException extends Exception {
+
+}
 
 class AuthenticateUserMiddleware
 {
@@ -14,8 +19,9 @@ class AuthenticateUserMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         try {
+
             if(!$request->hasHeader('Authorization')) {
-                throw new \Exception('Unauthorized. Authorization is empty!');
+                throw new AppException('Unauthorized. Authorization is empty!');
             }
 
             $userId = $request->header("userId");
@@ -24,13 +30,13 @@ class AuthenticateUserMiddleware
             $user = User::where('id', $userId)->first();
 
             if(empty($user))  {
-                throw new \Exception('Unauthorized. Invalid key authorization');
+                throw new AppException('Unauthorized. Invalid key authorization');
             }
 
             $publicHash = hash('sha256', $publicKey);
 
             if($user->publicHash != $publicHash) {
-                throw new \Exception('Unauthorized. Invalid key to the user!');
+                throw new AppException('Unauthorized. Invalid key to the user!');
             }
 
             // Register the requests of the key registered
@@ -43,7 +49,7 @@ class AuthenticateUserMiddleware
 
             $request->merge('user', $user);
 
-        } catch (\Exception $ex) {
+        } catch (AppException $ex) {
             return response()->json(['success' => false,'message' => $ex->getMessage()], Response::HTTP_UNAUTHORIZED);
         }
 
