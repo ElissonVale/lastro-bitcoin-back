@@ -14,7 +14,7 @@
         <nav class="navbar">
             <div class="navbar-logo">
                 <a href="/">
-                    <img src="{{ asset("assets/image/logo.png") }}" />
+                    <img src="{{ asset("assets/image/logo.png") }}"  />
                 </a>
             </div>
             <ul class="menu">
@@ -35,7 +35,7 @@
                 <a class="btn-docs" href="#">Documentation</a>
             </div>
         </nav>
-        <div class="row">
+        <div class="col-md12 col-lg-12 col-12">
             @yield('content')
         </div>
 
