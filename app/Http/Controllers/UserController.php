@@ -73,7 +73,7 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = User::all(); // User::select(['id', "userName", "surName", "publicKey"])->get();
+        $users = User::select(['id', "userName", "publicKey"])->get();
 
         foreach($users as $user) {
             $user->publicKey = urlencode($user->publicKey);
