@@ -7,27 +7,28 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Transaction extends Model
+class Notification extends Model
 {
     use HasUuids;
     use HasFactory;
 
     const MIN_UUID = "|min:36";
-    const MIN_WALLET = "|min:26";
 
-    protected $fillable = [
+    private $fillable = [
         'id',
         'userTo',
         'userFrom',
-        'amount',
+        'message',
+        'state'
     ];
 
-    public static function validator($request)
+    public static function validate($request)
     {
         $validator = Validator::make($request->all(), [
             'userTo' => 'required'.MIN_UUID,
             'userFrom' => 'required'.MIN_UUID,
-            'amount' => 'required',
+            'message' => 'required|min:15|max:250',
+            'state' => 'required'
         ]);
 
         return !$validator->fails();

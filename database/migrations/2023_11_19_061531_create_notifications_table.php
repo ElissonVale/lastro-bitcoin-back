@@ -11,11 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('userTo');
+            $table->uuid("userTo");
             $table->uuid('userFrom');
-            $table->decimal('amount', 18, 10); // 18 int and 10 decimal cases
+            $table->string("message", 250);
+            $table->enum('state', ['sended', 'received', 'accepted', 'rejected' ]);
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('notifications');
     }
 };
