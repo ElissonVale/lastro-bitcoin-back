@@ -56,11 +56,12 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                        <h2 class="text-white mb-4">Our Goal</h2>
                         <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
+                            Our objective is to allow transaction in Bitcoin free, for this, we create the app mobile that connects on server api 
+via tor network and create transactions just changing balances of users, and thus, allowing free transactions, being processed on the block chain only upon withdrawal and deposit.
+Read our paper for more informations.
+                            <a href="https://startbootstrap.com/theme/grayscale/">Paper</a>
                         </p>
                     </div>
                 </div>
