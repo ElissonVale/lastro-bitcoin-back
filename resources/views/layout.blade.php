@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#github">Github</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contacts</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Documentation <i class="fas fa-file-code text-default"></i></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/docs">Documentation <i class="fas fa-file-code text-default"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -59,8 +59,8 @@
                         <h2 class="text-white mb-4">Our Goal</h2>
                         <p class="text-white-50">
                             Our objective is to allow transaction in Bitcoin free, for this, we create the app mobile that connects on server api 
-via tor network and create transactions just changing balances of users, and thus, allowing free transactions, being processed on the block chain only upon withdrawal and deposit.
-Read our paper for more informations.
+                            via tor network and create transactions just changing balances of users, and thus, allowing free transactions, being processed on the block chain only upon withdrawal and deposit.
+                            Read our paper for more informations.
                             <a href="https://startbootstrap.com/theme/grayscale/">Paper</a>
                         </p>
                     </div>
@@ -69,42 +69,25 @@ Read our paper for more informations.
             </div>
         </section>
 
-        <!-- Projects-->
+        <!-- Github Projects -->
         <section class="projects-section " id="github">
             <div class="container px-4 px-lg-5">
-                <!-- Featured Project Row-->
-                {{-- <div class="row gx-0 mb-4 mb-lg-5 align-items-center">
-                    <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="assets/image/bg-masthead.jpg" alt="..." /></div>
-                    <div class="col-xl-4 col-lg-5">
-                        <div class="featured-text text-center text-lg-left">
-                            <h4>Shoreline</h4>
-                            <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
-                        </div>
-                    </div>
-                </div> --}}
-                <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/image/demo-image-01.jpg" alt="..." /></div>
+                    <div class="col-lg-6" style="display:flex;justify-content:center;">
+                        <img class="img-fluid" src="assets/image/github.png" alt="..." />
+                    </div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Project Two Row-->
-                <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="assets/image/demo-image-02.jpg" alt="..." /></div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
+                                    <h4 class="text-white">Github Projects</h4>
+                                    <p class="mb-0 text-white-50">Contribute for the project on our Github, all software are open source and you can access our server to verify our applications.</p>
+                                    <p class="mb-0 text-white-50">You can will download app or will clone on github and create a apk to install in your phone.</p>
+                                    <p class="mb-0 text-white-50">Are you not a developer?</p>
+                                    <p class="mb-0 text-white-50">You can download the application directly from this website down!</p>
+                                    <br />
+                                    <hr />
+                                    <a href="https://github.com/lastrobtc" target="_blank">Github Projects</a>
                                 </div>
                             </div>
                         </div>
@@ -119,38 +102,21 @@ Read our paper for more informations.
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-10 col-lg-8 mx-auto text-center">
                         <i class="far fa-paper-plane fa-2x mb-2 text-white"></i>
-                        <h2 class="text-white mb-5">Subscribe to receive updates!</h2>
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- * * SB Forms Contact Form * *-->
-                        <!-- * * * * * * * * * * * * * * *-->
-                        <!-- This form is pre-integrated with SB Forms.-->
-                        <!-- To make this form functional, sign up at-->
-                        <!-- https://startbootstrap.com/solution/contact-forms-->
-                        <!-- to get an API token!-->
+                        <h2 class="text-white mb-5">Subscribe to receive updates, alerts and all informations!</h2>
+
                         <form class="form-signup" id="contactForm" data-sb-form-api-token="API_TOKEN">
                             <!-- Email address input-->
                             <div class="row input-group-newsletter">
-                                <div class="col"><input class="form-control" id="emailAddress" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" /></div>
-                                <div class="col-auto"><button class="btn btn-primary disabled" id="submitButton" type="submit">Notify Me!</button></div>
+                                <div class="col">
+                                    <input class="form-control" id="emailAddress" type="email" placeholder="Enter email address..." aria-label="Enter email address..." data-sb-validations="required,email" />
+                                </div>
+                                <div class="col-auto">
+                                    <button class="btn btn-primary disabled" id="submitButton" type="submit">Notify Me!</button>
+                                </div>
                             </div>
                             <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:required">An email is required.</div>
                             <div class="invalid-feedback mt-2" data-sb-feedback="emailAddress:email">Email is not valid.</div>
-                            <!-- Submit success message-->
-                            <!---->
-                            <!-- This is what your users will see when the form-->
-                            <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3 mt-2 text-white">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
-                            <!-- Submit error message-->
-                            <!---->
-                            <!-- This is what your users will see when there is-->
-                            <!-- an error submitting the form-->
+
                             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3 mt-2">Error sending message!</div></div>
                         </form>
                     </div>
@@ -165,10 +131,10 @@ Read our paper for more informations.
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Address</h4>
+                                <i class="fas fa-x text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Twitter</h4>
                                 <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                                <div class="small text-black-50"><a href="https://twitter.com/LastroBTC" target="_black">Lastro BTC</a></div>
                             </div>
                         </div>
                     </div>
@@ -178,26 +144,22 @@ Read our paper for more informations.
                                 <i class="fas fa-envelope text-primary mb-2"></i>
                                 <h4 class="text-uppercase m-0">Email</h4>
                                 <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="#!">hello@yourdomain.com</a></div>
+                                <div class="small text-black-50"><a href="#!">lastrobtc@onionmail.org</a></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
                             <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Phone</h4>
+                                {{-- <i class="fas fa-mobile-alt text-primary mb-2"></i> --}}
+                                <i class="fa-brands fa-github text-primary mb-2"></i>
+                                <h4 class="text-uppercase m-0">Github Profile</h4>
                                 <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">+1 (555) 902-8832</div>
+                                <div class="small text-black-50"><a href="https://github.com/lastrobtc" target="_blank">Lastro BTC</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                {{-- <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-facebook-f"></i></a>
-                    <a class="mx-2" href="#!"><i class="fab fa-github"></i></a>
-                </div> --}}
             </div>
         </section>
 
@@ -214,7 +176,7 @@ Read our paper for more informations.
                                 <h4 class="text-uppercase m-0">Android</h4>
                                 <a href="#" class="btn btn-primary" style="margin: 20px;">Download</a>
                                 <hr class="my-2 mx-auto" />
-                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                                <div class="small text-black-50">Version 1.0.0</div>
                             </div>
                         </div>
                     </div>
@@ -226,25 +188,18 @@ Read our paper for more informations.
                                 <h4 class="text-uppercase m-0">Ios</h4>
                                 <a href="#" class="btn btn-primary" style="margin: 20px;">Download</a>
                                 <hr class="my-2 mx-auto" />
-                                <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+                                <div class="small text-black-50">Version 1.0.0</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-
        
          <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Lastro BTC 2023</div></footer>
         <!-- Bootstrap core JS-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-       
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        
         <!-- Core theme JS-->
         <script src="assets/js/app.js"></script>
 
