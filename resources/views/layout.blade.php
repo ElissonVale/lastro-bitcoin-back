@@ -125,8 +125,9 @@
         </section>
 
          <!-- Contact -->
-         <section class="contact-section bg-black">
+        <section class="contact-section bg-black">
             <div class="container px-4 px-lg-5">
+                <h2 class="text-white mb-5" style="text-align: center;">Where are we?</h2>
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0">
                         <div class="card py-4 h-100">
@@ -168,7 +169,9 @@
           <!-- Download -->
         <section class="bg-black" id="download">
             <div class="container px-4 px-lg-5">
+                
                 <div class="row gx-4 gx-lg-5" style="padding: 200px 0px;">
+                    <h2 class="text-white mb-5" style="text-align: center;">Downloads</h2>
                     <div class="col-md-6 mb-5 mb-md-0">
                         <div class="card py-2 h-100">
                             <div class="card-body text-center">
