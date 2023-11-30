@@ -50,7 +50,8 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {
-        User::where('id', $request->user->id)->delete();
+        $request->user->delete();
+        // User::where('id', $request->user->id)->delete();
 
         return response()->json(['success' => true, 'message' => "User deleted successfully"]);
     }
@@ -65,9 +66,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function found(Request $request)
+    public function founds(Request $request)
     {
-        return response()->json(['success' => true, 'found' => $request->user->funds]);
+        return response()->json(['success' => true, 'founds' => $request->user->funds]);
     }
 
 

@@ -39,16 +39,6 @@ class UserAuthenticateMiddleware
             if($user->publicHash != $publicHash) {
                 throw new AppError('Unauthorized. Invalid key to the user!');
             }
-
-            // Register the requests of the key registered
-            if($request->hasHeader('api-key')) {
-
-                $apiAuthenticator = ApiKeyAuthenticate::where('apiKey', $request->header('api-key'))->first();
-                
-                if(!empty($apiAuthenticator)) {
-                    $apiAuthenticator->update(['requests' => $apiAuthenticator->requests += 1]);
-                }
-            }
             
             $request->merge(['user' => $user]);
 

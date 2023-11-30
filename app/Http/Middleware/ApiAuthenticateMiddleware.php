@@ -17,7 +17,7 @@ class ApiAuthenticateMiddleware
         try
         {
             if(!$request->hasHeader('api-key')) {
-                throw new AppError('Unauthorized. apiKey is required!');
+                throw new AppError('Unauthorized. api-key is required!');
             }
 
             $apiKey = ApiKeyAuthenticate::where('apiKey', $request->header('api-key'))->first();
@@ -27,12 +27,9 @@ class ApiAuthenticateMiddleware
             }
 
             if(!$apiKey->active || $apiKey->expire < date('Y-m-d H:i:s', time())) {
-                throw new AppError("Unauthorized. apiKey is expired!");
+                throw new AppError("Unauthorized. api-key is expired!");
             }
 
-            $apiKey->update([
-                'requests' => $apiKey->requests += 1
-            ]);
         } catch (AppError $ex) {
             return response()->json(['success' => false,'message' => $ex->getMessage() ], Response::HTTP_UNAUTHORIZED);
         }

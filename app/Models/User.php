@@ -26,8 +26,8 @@ class User extends Model
     public static function validator($request)
     {
         $validator = Validator::make($request->all(), [
-            'userName' => 'required|min:30',
-            'publicKey' => 'required|min:100',
+            'userName' => 'required|min:5',
+            'publicKey' => 'required|min:60',
         ]);
 
         return !$validator->fails();

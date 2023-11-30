@@ -2,14 +2,15 @@
 
 namespace App\Http\Services;
 
-use phpseclib3\Crypt\RSA;
+use phpseclib3\Crypt\EC;
 use phpseclib3\Crypt\PublicKeyLoader;
 
 class KeyGenService {
 
     public static function generatePairKey()
     {
-        $privateKey = RSA::createKey();
+        // Gera a chave privada aleatória
+        $privateKey = EC::createKey("Ed25519");
 
         $publicKey = $privateKey->getPublicKey();
 
