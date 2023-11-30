@@ -21,7 +21,7 @@ class UserController extends Controller
         $user = User::where('userName', $request->userName)->first();
 
         return response()->json([
-            'success' => !isset($user),
+            'success' => isset($user),
             'message' => isset($user) ? "User already exists!" : "User name is valid!"
         ]);
     }
@@ -87,12 +87,22 @@ class UserController extends Controller
 
     public function list()
     {
-        $users = User::select(['id', "userName"])->get();
+        $users = User::select(['id', "userName", "publicKey"])->get();
 
         foreach($users as $user) {
             $user->publicKey = urlencode($user->publicKey);
         }
 
         return response()->json(['success' => true, 'users' => $users]);
+    }
+
+    public function deleteAll() 
+    {
+        $users = User::all();
+
+        foreach($users as $user)
+            $user->delete();
+
+        return response()->json(['success' => true, 'message' => "User deleted successfully"]);
     }
 }

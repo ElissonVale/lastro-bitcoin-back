@@ -10,7 +10,7 @@ use App\Models\ApiKeyAuthenticate;
 
 class AppError extends Exception { }
 
-class MobileAuthMiddleware
+class ApiAuthenticateMiddleware
 {
     public function handle(Request $request, Closure $next): Response
     {

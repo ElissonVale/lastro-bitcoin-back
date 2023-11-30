@@ -11,7 +11,7 @@ use App\Models\ApiKeyAuthenticate;
 
 class AppError extends Exception { }
 
-class AuthenticateUserMiddleware
+class UserAuthenticateMiddleware
 {
     // This middleware is responsible for authenticating the users
     public function handle(Request $request, Closure $next): Response

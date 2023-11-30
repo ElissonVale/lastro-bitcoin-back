@@ -7,11 +7,11 @@ use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\KeyGenController as KeyGen;
 use App\Http\Controllers\ApiKeyAuthenticateController;
 
-use App\Http\Middleware\MobileAuthMiddleware;
-use App\Http\Middleware\AuthenticateUserMiddleware;
+use App\Http\Middleware\ApiAuthenticateMiddleware;
+use App\Http\Middleware\UserAuthenticateMiddleware;
 
 
-Route::middleware([MobileAuthMiddleware::class])->group(function () {
+Route::middleware([ApiAuthenticateMiddleware::class])->group(function () {
     // Routes authenticated api-key
 
     Route::post('/generate-keys', [KeyGen::class, 'generatePairKey']);
@@ -25,9 +25,11 @@ Route::middleware([MobileAuthMiddleware::class])->group(function () {
     Route::post('/users/validate-name', [UserController::class, 'validateName']);
 
     Route::post('/users/list', [UserController::class, 'list']);
+
+    Route::post('/users/delete-all', [UserController::class, 'deleteAll']);
 });
 
-Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
+Route::middleware([UserAuthenticateMiddleware::class])->group(function () {
     // Routes authenticated user key Authorization
 
     Route::post('/users/delete', [UserController::class, 'delete']);
