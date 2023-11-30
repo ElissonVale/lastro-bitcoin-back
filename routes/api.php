@@ -12,12 +12,15 @@ use App\Http\Middleware\AuthenticateUserMiddleware;
 
 
 Route::middleware([MobileAuthMiddleware::class])->group(function () {
-    // Routes authenticated
+    // Routes authenticated api-key
+
     Route::post('/generate-keys', [KeyGen::class, 'generatePairKey']);
 
     Route::post('/recover-keys', [KeyGen::class, 'recoverPairKeys']);
 
     Route::post('/users/new', [UserController::class, 'create']);
+
+    Route::post('/users/exist', [UserController::class, 'existUser']);
 
     Route::post('/users/validate-name', [UserController::class, 'validateName']);
 
@@ -25,6 +28,7 @@ Route::middleware([MobileAuthMiddleware::class])->group(function () {
 });
 
 Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
+    // Routes authenticated user key Authorization
 
     Route::post('/users/delete', [UserController::class, 'delete']);
 
@@ -37,5 +41,10 @@ Route::middleware([AuthenticateUserMiddleware::class])->group(function () {
 Route::post('/authenticate/generate-key', [ApiKeyAuthenticateController::class, 'generate']);
 
 Route::post('/authenticate/list-keys', [ApiKeyAuthenticateController::class, 'list']);
+
+Route::post('/tests', function () {
+    $date = date('Y-m-d H:i:s', time());
+    dd($date);
+});
 
 

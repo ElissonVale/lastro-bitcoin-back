@@ -16,11 +16,11 @@ class MobileAuthMiddleware
     {
         try
         {
-            if(!$request->hasHeader('apiKey')) {
+            if(!$request->hasHeader('api-key')) {
                 throw new AppError('Unauthorized. apiKey is required!');
             }
 
-            $apiKey = ApiKeyAuthenticate::where('apiKey', $request->header('apiKey'))->first();
+            $apiKey = ApiKeyAuthenticate::where('apiKey', $request->header('api-key'))->first();
 
             if(empty($apiKey))  {
                 throw new AppError('Unauthorized. Invalid key authorization!');

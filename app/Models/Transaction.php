@@ -20,6 +20,10 @@ class Transaction extends Model
         'userTo',
         'userFrom',
         'amount',
+        'description',
+        'state', // 'created', 'sended', 'received', 'accepted', 'rejected', 'confirm' => default 'created'
+        'network', // 'lightning', 'bitcoin' => default 'bitcoin'
+        'created_at'
     ];
 
     public static function validator($request)

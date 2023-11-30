@@ -14,7 +14,7 @@ class Notification extends Model
 
     const MIN_UUID = "|min:36";
 
-    private $fillable = [
+    protected $fillable = [
         'id',
         'userTo',
         'userFrom',

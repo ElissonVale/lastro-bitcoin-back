@@ -24,11 +24,11 @@ class AuthenticateUserMiddleware
 
             $publicKey = urldecode($request->header('Authorization'));
 
-            if(!$request->hasHeader('userId')) {
-                throw new AppError('Unauthorized. userId is empty!');
+            if(!$request->hasHeader('user-id')) {
+                throw new AppError('Unauthorized. user-id is empty!');
             }
 
-            $user = User::where('id', $request->header("userId"))->first();
+            $user = User::where('id', $request->header("user-id"))->first();
 
             if(empty($user))  {
                 throw new AppError('Unauthorized. Invalid key authorization');
@@ -41,14 +41,16 @@ class AuthenticateUserMiddleware
             }
 
             // Register the requests of the key registered
-            if($request->hasHeader('apiKey')) {
-                $apiAuthenticator = ApiKeyAuthenticate::where('apiKey', $request->getHeader('apiKey'))->first();
+            if($request->hasHeader('api-key')) {
+
+                $apiAuthenticator = ApiKeyAuthenticate::where('apiKey', $request->header('api-key'))->first();
+                
                 if(!empty($apiAuthenticator)) {
                     $apiAuthenticator->update(['requests' => $apiAuthenticator->requests += 1]);
                 }
             }
-
-            $request->merge('user', $user);
+            
+            $request->merge(['user' => $user]);
 
         } catch (AppError $ex) {
             return response()->json(['success' => false,'message' => $ex->getMessage()], Response::HTTP_UNAUTHORIZED);

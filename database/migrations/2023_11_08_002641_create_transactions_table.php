@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->uuid('userTo');
+            $table->uuid('userTo'); 
             $table->uuid('userFrom');
             $table->decimal('amount', 18, 10); // 18 int and 10 decimal cases
+            $table->string("deacription", 100);
+            $table->enum('state', ['created', 'sended', 'received', 'accepted', 'rejected', 'confirm']);
+            $table->enum('network', ['lightning', 'bitcoin'])->default('bitcoin');
             $table->timestamps();
         });
     }

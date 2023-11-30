@@ -33,6 +33,7 @@ class UserController extends Controller
         }
 
         $user = User::create([
+            'funds' => 0,
             'userName' => $request->userName,
             'surName' => $request->surName,
             'avatarUrl' => $request->avatarUrl,
@@ -69,9 +70,24 @@ class UserController extends Controller
         return response()->json(['success' => true, 'found' => $request->user->funds]);
     }
 
+
+    public function existUser(Request $request)
+    {
+        if(empty($request->id)) {
+            return response()->json([ 'success' => false, 'message' => 'Check the parameter `id`' ]);
+        }
+
+        $user = User::where('id', $request->id)->first();
+
+        return response()->json([
+            'success' => !empty($user),
+            'message' => empty($user) ? "The user not exist!" : "Yes, the user exist"
+        ]);
+    }
+
     public function list()
     {
-        $users = User::select(['id', "userName", "publicKey"])->get();
+        $users = User::select(['id', "userName"])->get();
 
         foreach($users as $user) {
             $user->publicKey = urlencode($user->publicKey);
